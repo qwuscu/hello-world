@@ -1,0 +1,42 @@
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+import time
+
+class AirbnbExercise():
+    def test(self):
+        baseurl = "https://www.airbnb.com/"
+        driver = webdriver.Firefox()
+        driver.maximize_window()
+        driver.get(baseurl)
+        driver.implicitly_wait(5)
+
+        searchBox= driver.find_element_by_xpath(
+            "html/body/div[5]/div/div/main/div[1]/div/div/div[2]/div/div/div/div/div/form/div[1]/div/div/div/div/div/div[2]/input")
+        #searchBox id:  (.//input[@name='location'])[2]
+        searchBox.send_keys("San Jose, CA")
+        time.sleep(2)
+
+        #searchButton = driver.find_element_by_xpath(".//main[@id='site-content']//button[@class='_vuq6rr']")
+        searchButton=driver.find_element_by_xpath(".//main[@id='site-content']//span[text()='Search']")
+        searchButton.click()
+
+        datesButton = driver.find_element_by_xpath(".//main[@id='site-content']//button[@aria-controls='menuItemComponent-date_picker']")
+        datesButton.click()
+
+        checkIn = driver.find_element_by_xpath(".//div[@id='menuItemComponent-date_picker']//button[contains(@aria-label, 'December 1, 2017')]")
+        checkIn.click()
+        time.sleep(2)
+
+        checkOut = driver.find_element_by_xpath(".//div[@id='menuItemComponent-date_picker']//button[contains(@aria-label, 'December 3, 2017')]")
+        checkOut.click()
+        time.sleep(2)
+        guestsButton = driver.find_element_by_xpath(".//main[@id='site-content']//button[contains(@aria-controls, 'guest_picker')]")
+        guestsButton.click()
+        time.sleep(2)
+        applyButton = driver.find_element_by_xpath(".//div[@id='menuItemComponent-guest_picker']//button[@class='_18qyh5xp']")
+        applyButton.click()
+
+        driver.quit()
+
+ff= AirbnbExercise()
+ff.test()
